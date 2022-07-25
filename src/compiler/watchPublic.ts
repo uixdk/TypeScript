@@ -124,6 +124,7 @@ namespace ts {
          * Returns the module resolution cache used by a provided `resolveModuleNames` implementation so that any non-name module resolution operations (eg, package.json lookup) can reuse it
          */
         getModuleResolutionCache?(): ModuleResolutionCache | undefined;
+        /*@internal*/ getTypeReferenceDirectiveResolutionCache?(): TypeReferenceDirectiveResolutionCache | undefined;
         /** If provided, used to resolve type reference directives, otherwise typescript's default resolution */
         resolveTypeReferenceDirectives?(typeReferenceDirectiveNames: string[] | readonly FileReference[], containingFile: string, redirectedReference: ResolvedProjectReference | undefined, options: CompilerOptions, containingFileMode?: ResolutionMode, partialResolutionInfo?: PartialResolutionInfo): ResolvedTypeReferenceDirectiveWithFailedLookupLocations[] | (ResolvedTypeReferenceDirective | undefined)[];
     }
@@ -380,6 +381,9 @@ namespace ts {
         compilerHost.getModuleResolutionCache = host.resolveModuleNames ?
             maybeBind(host, host.getModuleResolutionCache) :
             (() => resolutionCache.getModuleResolutionCache());
+        compilerHost.getTypeReferenceDirectiveResolutionCache = host.resolveTypeReferenceDirectives ?
+            maybeBind(host, host.getTypeReferenceDirectiveResolutionCache) :
+            (() => resolutionCache.getTypeReferenceDirectiveResolutionCache());
         const userProvidedResolution = !!host.resolveModuleNames || !!host.resolveTypeReferenceDirectives;
 
         builderProgram = readBuilderProgram(compilerOptions, compilerHost) as any as T;

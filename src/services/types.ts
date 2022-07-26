@@ -550,6 +550,8 @@ namespace ts {
         getEmitOutput(fileName: string, emitOnlyDtsFiles?: boolean, forceDtsEmit?: boolean): EmitOutput;
 
         getProgram(): Program | undefined;
+        /* @internal */
+        getCurrentProgram(): Program | undefined;
 
         /* @internal */ getNonBoundSourceFile(fileName: string): SourceFile;
         /* @internal */ getAutoImportProvider(): Program | undefined;

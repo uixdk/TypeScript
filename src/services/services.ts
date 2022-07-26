@@ -2716,6 +2716,7 @@ namespace ts {
             getEmitOutput,
             getNonBoundSourceFile,
             getProgram,
+            getCurrentProgram: () => program,
             getAutoImportProvider,
             updateIsDefinitionOfReferencedSymbols,
             getApplicableRefactors,

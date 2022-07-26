@@ -670,6 +670,11 @@ namespace ts {
     /*@internal*/
     export type RedirectsCacheKey = string & { __compilerOptionsKey: any; };
     /*@internal*/
+    export function getRedirectsCacheKey(options: CompilerOptions) {
+        return getKeyForCompilationSettings(options, moduleResolutionOptionDeclarations) as RedirectsCacheKey;
+    }
+
+    /*@internal*/
     export interface RedirectsMapAndOptions<K, T> {
         map: ESMap<K, T>;
         options: CompilerOptions;
@@ -694,12 +699,8 @@ namespace ts {
             update,
         };
 
-        function getCompilerOptionsKey(options: CompilerOptions) {
-            return getKeyForCompilationSettings(options, moduleResolutionOptionDeclarations) as RedirectsCacheKey;
-        }
-
         function ensureOwnKeyCached() {
-            ownKey ??= ownOptions && getCompilerOptionsKey(ownOptions);
+            ownKey ??= ownOptions && getRedirectsCacheKey(ownOptions);
             if (ownKey && !redirectsKeyToCache.has(ownKey)) redirectsKeyToCache.set(ownKey, { map: ownMap ??= new Map(), options: ownOptions! });
         }
 
@@ -714,7 +715,7 @@ namespace ts {
                 if (redirects) return redirects;
             }
 
-            const key = getCompilerOptionsKey(options);
+            const key = getRedirectsCacheKey(options);
             let map = redirectsKeyToCache.get(key)?.map;
             if (!map) {
                 ensureOwnKeyCached();
@@ -754,7 +755,7 @@ namespace ts {
                 }
             }
 
-            const key = getCompilerOptionsKey(newOwnOptions);
+            const key = getRedirectsCacheKey(newOwnOptions);
             const existing = redirectsKeyToCache.get(key);
             ownMap = existing?.map || new Map();
             ownKey = key;
@@ -766,7 +767,7 @@ namespace ts {
             if (!redirectedReference) return ownMap;
             const directResult = redirectsMap.get(redirectedReference.sourceFile.path);
             if (directResult) return directResult.map;
-            const key = getCompilerOptionsKey(redirectedReference.commandLine.options);
+            const key = getRedirectsCacheKey(redirectedReference.commandLine.options);
             const fromKey = redirectsKeyToCache.get(key);
             if (fromKey) return fromKey.map;
             if (ownMap) ensureOwnKeyCached();

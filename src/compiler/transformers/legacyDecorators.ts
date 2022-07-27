@@ -68,24 +68,44 @@ namespace ts {
         function visitClassDeclaration(node: ClassDeclaration): VisitResult<Statement> {
             if (!(classOrConstructorParameterIsDecorated(node) || childIsDecorated(node))) return visitEachChild(node, visitor, context);
 
-            const classStatement = hasDecorators(node) ?
+            const statements = hasDecorators(node) ?
                 createClassDeclarationHeadWithDecorators(node, node.name) :
                 createClassDeclarationHeadWithoutDecorators(node, node.name);
-
-            const statements: Statement[] = [classStatement];
-
-            // Write any decorators of the node.
-            addClassElementDecorationStatements(statements, node, /*isStatic*/ false);
-            addClassElementDecorationStatements(statements, node, /*isStatic*/ true);
-            addConstructorDecorationStatement(statements, node);
 
             if (statements.length > 1) {
                 // Add a DeclarationMarker as a marker for the end of the declaration
                 statements.push(factory.createEndOfDeclarationMarker(node));
-                setEmitFlags(classStatement, getEmitFlags(classStatement) | EmitFlags.HasEndOfDeclarationMarker);
+                setEmitFlags(statements[0], getEmitFlags(statements[0]) | EmitFlags.HasEndOfDeclarationMarker);
             }
 
             return singleOrMany(statements);
+        }
+
+        function containsDecoratedClassElementWithPrivateFieldAccess(node: ClassDeclaration) {
+            for (const member of node.members) {
+                if (!canHaveDecorators(member)) continue;
+                const decorators = getAllDecoratorsOfClassElement(member, node);
+                if (decorators?.decorators) {
+                    for (const decorator of decorators.decorators) {
+                        if (decorator.transformFlags & TransformFlags.ContainsPrivateIdentifierInExpression) {
+                            return true;
+                        }
+                    }
+                }
+                if (decorators?.parameters) {
+                    for (const parameterDecorators of decorators.parameters) {
+                        if (parameterDecorators) {
+                            for (const decorator of parameterDecorators) {
+                                if (decorator.transformFlags & TransformFlags.ContainsPrivateIdentifierInExpression) {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return false;
         }
 
         /**
@@ -99,14 +119,33 @@ namespace ts {
             //      ${members}
             //  }
 
-            return factory.updateClassDeclaration(
+            const modifiers = visitNodes(node.modifiers, modifierVisitor, isModifier);
+            const heritageClauses = visitNodes(node.heritageClauses, visitor, isHeritageClause);
+            let members = visitNodes(node.members, visitor, isClassElement);
+
+            let decorationStatements: Statement[] | undefined = [];
+            addClassElementDecorationStatements(decorationStatements, node, /*isStatic*/ false);
+            addClassElementDecorationStatements(decorationStatements, node, /*isStatic*/ true);
+            if (containsDecoratedClassElementWithPrivateFieldAccess(node)) {
+                members = setTextRange(factory.createNodeArray([
+                    ...members,
+                    factory.createClassStaticBlockDeclaration(
+                        factory.createBlock(decorationStatements, /*multiLine*/ true)
+                    )
+                ]), members);
+                decorationStatements = undefined;
+            }
+
+            const updated = factory.updateClassDeclaration(
                 node,
-                visitNodes(node.modifiers, modifierVisitor, isModifier),
+                modifiers,
                 name,
                 /*typeParameters*/ undefined,
-                visitNodes(node.heritageClauses, visitor, isHeritageClause),
-                visitNodes(node.members, visitor, isClassElement)
+                heritageClauses,
+                members
             );
+
+            return addRange([updated], decorationStatements);
         }
 
         /**
@@ -213,8 +252,28 @@ namespace ts {
             //      ${members}
             //  }
             const heritageClauses = visitNodes(node.heritageClauses, visitor, isHeritageClause);
-            const members = visitNodes(node.members, visitor, isClassElement);
-            const classExpression = factory.createClassExpression(/*modifiers*/ undefined, name, /*typeParameters*/ undefined, heritageClauses, members);
+            let members = visitNodes(node.members, visitor, isClassElement);
+
+            let decorationStatements: Statement[] | undefined = [];
+            addClassElementDecorationStatements(decorationStatements, node, /*isStatic*/ false);
+            addClassElementDecorationStatements(decorationStatements, node, /*isStatic*/ true);
+            if (containsDecoratedClassElementWithPrivateFieldAccess(node)) {
+                members = setTextRange(factory.createNodeArray([
+                    ...members,
+                    factory.createClassStaticBlockDeclaration(
+                        factory.createBlock(decorationStatements, /*multiLine*/ true)
+                    )
+                ]), members);
+                decorationStatements = undefined;
+            }
+
+            const classExpression = factory.createClassExpression(
+                /*modifiers*/ undefined,
+                name,
+                /*typeParameters*/ undefined,
+                heritageClauses,
+                members);
+
             setOriginalNode(classExpression, node);
             setTextRange(classExpression, location);
 
@@ -234,7 +293,11 @@ namespace ts {
             setOriginalNode(statement, node);
             setTextRange(statement, location);
             setCommentRange(statement, node);
-            return statement;
+
+            const statements: Statement[] = [statement];
+            addRange(statements, decorationStatements);
+            addConstructorDecorationStatement(statements, node);
+            return statements;
         }
 
         function visitClassExpression(node: ClassExpression) {

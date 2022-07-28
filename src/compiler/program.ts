@@ -870,7 +870,7 @@ namespace ts {
                 return undefined;
         }
         function lookupFromPackageJson(): NonNullable<ResolutionMode> {
-            const scope = getPackageScopeForPath(fileName, packageJsonInfoCache, host, options);
+            const scope = getPackageScopeForPath(fileName, getTemporaryModuleResolutionState(packageJsonInfoCache, host, options));
             return scope?.packageJsonContent.type === "module" ? ModuleKind.ESNext : ModuleKind.CommonJS;
         }
     }
@@ -1174,18 +1174,7 @@ namespace ts {
         let oldProgram = typeof oldProgramOrOldBuildInfoProgramConstructor === "object" ? oldProgramOrOldBuildInfoProgramConstructor : undefined;
         let oldBuildInfoProgram: OldBuildInfoProgram | undefined;
         if (!oldProgram && typeof oldProgramOrOldBuildInfoProgramConstructor === "function") {
-            const state: ModuleResolutionState = {
-                host,
-                compilerOptions: options,
-                traceEnabled: isTraceEnabled(options, host),
-                failedLookupLocations: [],
-                affectingLocations: [],
-                packageJsonInfoCache: moduleResolutionCache?.getPackageJsonInfoCache(),
-                features: 0,
-                conditions: [],
-                requestContainingDirectory: undefined,
-                reportResolutionDiagnostic: noop
-            };
+            const state = getTemporaryModuleResolutionState(moduleResolutionCache?.getPackageJsonInfoCache(), host, options);
             oldBuildInfoProgram = oldProgramOrOldBuildInfoProgramConstructor({
                 fileExists: fileName => host.fileExists(fileName),
                 createHash: maybeBind(host, host.createHash),

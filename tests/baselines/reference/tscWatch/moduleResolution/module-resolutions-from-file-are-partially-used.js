@@ -164,6 +164,8 @@ WatchedFiles::
   {"fileName":"/user/username/projects/myproject/node_modules/@types","pollingInterval":500}
 
 FsWatches::
+/user/username/projects/myproject:
+  {"directoryName":"/user/username/projects/myproject"}
 
 FsWatchesRecursive::
 /user/username/projects/myproject/node_modules:
@@ -278,6 +280,8 @@ WatchedFiles::
   {"fileName":"/user/username/projects/myproject/node_modules/@types","pollingInterval":500}
 
 FsWatches::
+/user/username/projects/myproject:
+  {"directoryName":"/user/username/projects/myproject"}
 
 FsWatchesRecursive::
 /user/username/projects/myproject/node_modules:

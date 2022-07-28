@@ -609,11 +609,29 @@ FileWatcher:: Added:: WatchInfo: /a/lib/lib.d.ts 250 undefined Source file
 FileWatcher:: Added:: WatchInfo: /src/project/node_modules/pkg0/package.json 2000 undefined package.json file
 DirectoryWatcher:: Added:: WatchInfo: /src/project/node_modules 1 undefined Failed Lookup Locations
 Elapsed:: *ms DirectoryWatcher:: Added:: WatchInfo: /src/project/node_modules 1 undefined Failed Lookup Locations
+DirectoryWatcher:: Added:: WatchInfo: /src/project 0 undefined Failed Lookup Locations
+Elapsed:: *ms DirectoryWatcher:: Added:: WatchInfo: /src/project 0 undefined Failed Lookup Locations
 FileWatcher:: Added:: WatchInfo: /src/project/node_modules/pkg1/package.json 2000 undefined package.json file
 FileWatcher:: Added:: WatchInfo: /src/project/node_modules/pkg2/package.json 2000 undefined package.json file
 FileWatcher:: Added:: WatchInfo: /src/project/node_modules/pkg3/package.json 2000 undefined package.json file
 DirectoryWatcher:: Added:: WatchInfo: /src/project/node_modules/@types 1 undefined Type roots
 Elapsed:: *ms DirectoryWatcher:: Added:: WatchInfo: /src/project/node_modules/@types 1 undefined Type roots
+DirectoryWatcher:: Triggered with /src/project/fileWithImports.js :: WatchInfo: /src/project 0 undefined Failed Lookup Locations
+Elapsed:: *ms DirectoryWatcher:: Triggered with /src/project/fileWithImports.js :: WatchInfo: /src/project 0 undefined Failed Lookup Locations
+DirectoryWatcher:: Triggered with /src/project/fileWithImports.d.ts :: WatchInfo: /src/project 0 undefined Failed Lookup Locations
+Elapsed:: *ms DirectoryWatcher:: Triggered with /src/project/fileWithImports.d.ts :: WatchInfo: /src/project 0 undefined Failed Lookup Locations
+DirectoryWatcher:: Triggered with /src/project/fileWithTypeRefs.js :: WatchInfo: /src/project 0 undefined Failed Lookup Locations
+Elapsed:: *ms DirectoryWatcher:: Triggered with /src/project/fileWithTypeRefs.js :: WatchInfo: /src/project 0 undefined Failed Lookup Locations
+DirectoryWatcher:: Triggered with /src/project/fileWithTypeRefs.d.ts :: WatchInfo: /src/project 0 undefined Failed Lookup Locations
+Elapsed:: *ms DirectoryWatcher:: Triggered with /src/project/fileWithTypeRefs.d.ts :: WatchInfo: /src/project 0 undefined Failed Lookup Locations
+DirectoryWatcher:: Triggered with /src/project/randomFileForImport.js :: WatchInfo: /src/project 0 undefined Failed Lookup Locations
+Elapsed:: *ms DirectoryWatcher:: Triggered with /src/project/randomFileForImport.js :: WatchInfo: /src/project 0 undefined Failed Lookup Locations
+DirectoryWatcher:: Triggered with /src/project/randomFileForImport.d.ts :: WatchInfo: /src/project 0 undefined Failed Lookup Locations
+Elapsed:: *ms DirectoryWatcher:: Triggered with /src/project/randomFileForImport.d.ts :: WatchInfo: /src/project 0 undefined Failed Lookup Locations
+DirectoryWatcher:: Triggered with /src/project/randomFileForTypeRef.js :: WatchInfo: /src/project 0 undefined Failed Lookup Locations
+Elapsed:: *ms DirectoryWatcher:: Triggered with /src/project/randomFileForTypeRef.js :: WatchInfo: /src/project 0 undefined Failed Lookup Locations
+DirectoryWatcher:: Triggered with /src/project/randomFileForTypeRef.d.ts :: WatchInfo: /src/project 0 undefined Failed Lookup Locations
+Elapsed:: *ms DirectoryWatcher:: Triggered with /src/project/randomFileForTypeRef.d.ts :: WatchInfo: /src/project 0 undefined Failed Lookup Locations
 [96mfileWithImports.ts[0m:[93m2[0m:[93m40[0m - [91merror[0m[90m TS2307: [0mCannot find module 'pkg1' or its corresponding type declarations.
 
 [7m2[0m import type { RequireInterface1 } from "pkg1" assert { "resolution-mode": "require" };
@@ -698,6 +716,7 @@ WatchedFiles::
 
 FsWatches::
 /src/project:
+  {"directoryName":"/src/project"}
   {"directoryName":"/src/project"}
 
 FsWatchesRecursive::
@@ -1207,6 +1226,7 @@ WatchedFiles::
 FsWatches::
 /src/project:
   {"directoryName":"/src/project"}
+  {"directoryName":"/src/project"}
 
 FsWatchesRecursive::
 /src/project/node_modules:
@@ -1678,6 +1698,7 @@ WatchedFiles::
 FsWatches::
 /src/project:
   {"directoryName":"/src/project"}
+  {"directoryName":"/src/project"}
 
 FsWatchesRecursive::
 /src/project/node_modules:
@@ -2086,6 +2107,8 @@ File '/package.json' does not exist according to earlier cached lookups.
 File '/a/lib/package.json' does not exist according to earlier cached lookups.
 File '/a/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
+DirectoryWatcher:: Close:: WatchInfo: /src/project 0 undefined Failed Lookup Locations
+Elapsed:: *ms DirectoryWatcher:: Close:: WatchInfo: /src/project 0 undefined Failed Lookup Locations
 [96mfileWithTypeRefs.ts[0m:[93m2[0m:[93m23[0m - [91merror[0m[90m TS2688: [0mCannot find type definition file for 'pkg3'.
 
 [7m2[0m /// <reference types="pkg3" resolution-mode="require"/>
@@ -3274,6 +3297,8 @@ File '/package.json' does not exist according to earlier cached lookups.
 FileWatcher:: Close:: WatchInfo: /src/project/node_modules/pkg1/require.d.ts 250 undefined Source file
 DirectoryWatcher:: Added:: WatchInfo: /src/project/node_modules 1 undefined Failed Lookup Locations
 Elapsed:: *ms DirectoryWatcher:: Added:: WatchInfo: /src/project/node_modules 1 undefined Failed Lookup Locations
+DirectoryWatcher:: Added:: WatchInfo: /src/project 0 undefined Failed Lookup Locations
+Elapsed:: *ms DirectoryWatcher:: Added:: WatchInfo: /src/project 0 undefined Failed Lookup Locations
 [96mfileWithImports.ts[0m:[93m2[0m:[93m40[0m - [91merror[0m[90m TS2307: [0mCannot find module 'pkg1' or its corresponding type declarations.
 
 [7m2[0m import type { RequireInterface1 } from "pkg1" assert { "resolution-mode": "require" };
@@ -3354,6 +3379,7 @@ WatchedFiles::
 
 FsWatches::
 /src/project:
+  {"directoryName":"/src/project"}
   {"directoryName":"/src/project"}
 
 FsWatchesRecursive::
@@ -3821,6 +3847,8 @@ File '/a/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
 DirectoryWatcher:: Close:: WatchInfo: /src/project/node_modules 1 undefined Failed Lookup Locations
 Elapsed:: *ms DirectoryWatcher:: Close:: WatchInfo: /src/project/node_modules 1 undefined Failed Lookup Locations
+DirectoryWatcher:: Close:: WatchInfo: /src/project 0 undefined Failed Lookup Locations
+Elapsed:: *ms DirectoryWatcher:: Close:: WatchInfo: /src/project 0 undefined Failed Lookup Locations
 ../../a/lib/lib.d.ts
   Default library for target 'es3'
 node_modules/pkg0/import.d.ts
@@ -5241,6 +5269,8 @@ File '/a/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
 DirectoryWatcher:: Added:: WatchInfo: /src/project/node_modules 1 undefined Failed Lookup Locations
 Elapsed:: *ms DirectoryWatcher:: Added:: WatchInfo: /src/project/node_modules 1 undefined Failed Lookup Locations
+DirectoryWatcher:: Added:: WatchInfo: /src/project 0 undefined Failed Lookup Locations
+Elapsed:: *ms DirectoryWatcher:: Added:: WatchInfo: /src/project 0 undefined Failed Lookup Locations
 [96mrandomFileForImport.ts[0m:[93m1[0m:[93m39[0m - [91merror[0m[90m TS2307: [0mCannot find module 'pkg0' or its corresponding type declarations.
 
 [7m1[0m import type { ImportInterface0 } from "pkg0" assert { "resolution-mode": "import" };
@@ -5296,6 +5326,7 @@ WatchedFiles::
 
 FsWatches::
 /src/project:
+  {"directoryName":"/src/project"}
   {"directoryName":"/src/project"}
 
 FsWatchesRecursive::
@@ -5611,6 +5642,7 @@ WatchedFiles::
 
 FsWatches::
 /src/project:
+  {"directoryName":"/src/project"}
   {"directoryName":"/src/project"}
 
 FsWatchesRecursive::

@@ -131,7 +131,7 @@ namespace ts {
         resultFromCache?: ResolvedModuleWithFailedLookupLocations;
         packageJsonInfoCache: PackageJsonInfoCache | undefined;
         features: NodeResolutionFeatures;
-        conditions: string[];
+        conditions: readonly string[];
         requestContainingDirectory: string | undefined;
         reportResolutionDiagnostic: (d: ResolutionDiagnostic) => void;
     }
@@ -506,18 +506,7 @@ namespace ts {
         host: ModuleResolutionHost,
         cache: ModuleResolutionCache | undefined,
     ): PackageJsonInfo | undefined {
-        const moduleResolutionState: ModuleResolutionState = {
-            compilerOptions: options,
-            host,
-            traceEnabled: isTraceEnabled(options, host),
-            failedLookupLocations: [],
-            affectingLocations: [],
-            packageJsonInfoCache: cache?.getPackageJsonInfoCache(),
-            conditions: emptyArray,
-            features: NodeResolutionFeatures.None,
-            requestContainingDirectory: containingDirectory,
-            reportResolutionDiagnostic: noop
-        };
+        const moduleResolutionState = getTemporaryModuleResolutionState(cache?.getPackageJsonInfoCache(), host, options);
 
         return forEachAncestorDirectory(containingDirectory, ancestorDirectory => {
             if (getBaseFileName(ancestorDirectory) !== "node_modules") {
@@ -1440,8 +1429,8 @@ namespace ts {
     }
 
     function node16ModuleNameResolver(moduleName: string, containingFile: string, compilerOptions: CompilerOptions,
-            host: ModuleResolutionHost, cache?: ModuleResolutionCache, redirectedReference?: ResolvedProjectReference,
-            resolutionMode?: ResolutionMode): ResolvedModuleWithFailedLookupLocations {
+        host: ModuleResolutionHost, cache?: ModuleResolutionCache, redirectedReference?: ResolvedProjectReference,
+        resolutionMode?: ResolutionMode): ResolvedModuleWithFailedLookupLocations {
         return nodeNextModuleNameResolverWorker(
             NodeResolutionFeatures.Node16Default,
             moduleName,
@@ -1455,8 +1444,8 @@ namespace ts {
     }
 
     function nodeNextModuleNameResolver(moduleName: string, containingFile: string, compilerOptions: CompilerOptions,
-            host: ModuleResolutionHost, cache?: ModuleResolutionCache, redirectedReference?: ResolvedProjectReference,
-            resolutionMode?: ResolutionMode): ResolvedModuleWithFailedLookupLocations {
+        host: ModuleResolutionHost, cache?: ModuleResolutionCache, redirectedReference?: ResolvedProjectReference,
+        resolutionMode?: ResolutionMode): ResolvedModuleWithFailedLookupLocations {
         return nodeNextModuleNameResolverWorker(
             NodeResolutionFeatures.NodeNextDefault,
             moduleName,
@@ -1861,18 +1850,9 @@ namespace ts {
         let entrypoints: string[] | undefined;
         const extensions = resolveJs ? Extensions.JavaScript : Extensions.TypeScript;
         const features = getDefaultNodeResolutionFeatures(options);
-        const requireState: ModuleResolutionState = {
-            compilerOptions: options,
-            host,
-            traceEnabled: isTraceEnabled(options, host),
-            failedLookupLocations: [],
-            affectingLocations: [],
-            packageJsonInfoCache: cache?.getPackageJsonInfoCache(),
-            conditions: ["node", "require", "types"],
-            features,
-            requestContainingDirectory: packageJsonInfo.packageDirectory,
-            reportResolutionDiagnostic: noop
-        };
+        const requireState = getTemporaryModuleResolutionState(cache?.getPackageJsonInfoCache(), host, options);
+        requireState.conditions = ["node", "require", "types"];
+        requireState.requestContainingDirectory = packageJsonInfo.packageDirectory;
         const requireResolution = loadNodeModuleFromDirectoryWorker(
             extensions,
             packageJsonInfo.packageDirectory,
@@ -1959,6 +1939,22 @@ namespace ts {
     }
 
     /*@internal*/
+    export function getTemporaryModuleResolutionState(packageJsonInfoCache: PackageJsonInfoCache | undefined, host: ModuleResolutionHost, options: CompilerOptions): ModuleResolutionState {
+        return {
+            host,
+            compilerOptions: options,
+            traceEnabled: isTraceEnabled(options, host),
+            failedLookupLocations: noopPush,
+            affectingLocations: noopPush,
+            packageJsonInfoCache,
+            features: NodeResolutionFeatures.None,
+            conditions: emptyArray,
+            requestContainingDirectory: undefined,
+            reportResolutionDiagnostic: noop
+        };
+    }
+
+    /*@internal*/
     interface PackageJsonInfo {
         packageDirectory: string;
         packageJsonText: string | undefined,
@@ -1972,31 +1968,7 @@ namespace ts {
      * A function for locating the package.json scope for a given path
      */
     /*@internal*/
-     export function getPackageScopeForPath(fileName: Path, packageJsonInfoCache: PackageJsonInfoCache | undefined, host: ModuleResolutionHost, options: CompilerOptions): PackageJsonInfo | undefined {
-        const state: {
-            host: ModuleResolutionHost;
-            compilerOptions: CompilerOptions;
-            traceEnabled: boolean;
-            failedLookupLocations: Push<string>;
-            affectingLocations: Push<string>;
-            resultFromCache?: ResolvedModuleWithFailedLookupLocations;
-            packageJsonInfoCache: PackageJsonInfoCache | undefined;
-            features: number;
-            conditions: never[];
-            requestContainingDirectory: string | undefined;
-            reportResolutionDiagnostic: (d: ResolutionDiagnostic) => void;
-        } = {
-            host,
-            compilerOptions: options,
-            traceEnabled: isTraceEnabled(options, host),
-            failedLookupLocations: [],
-            affectingLocations: [],
-            packageJsonInfoCache,
-            features: 0,
-            conditions: [],
-            requestContainingDirectory: undefined,
-            reportResolutionDiagnostic: noop
-        };
+     export function getPackageScopeForPath(fileName: Path, state: ModuleResolutionState): PackageJsonInfo | undefined {
         const parts = getPathComponents(fileName);
         parts.pop();
         while (parts.length > 0) {
@@ -2175,7 +2147,7 @@ namespace ts {
     function loadModuleFromSelfNameReference(extensions: Extensions, moduleName: string, directory: string, state: ModuleResolutionState, cache: ModuleResolutionCache | undefined, redirectedReference: ResolvedProjectReference | undefined): SearchResult<Resolved> {
         const useCaseSensitiveFileNames = typeof state.host.useCaseSensitiveFileNames === "function" ? state.host.useCaseSensitiveFileNames() : state.host.useCaseSensitiveFileNames;
         const directoryPath = toPath(combinePaths(directory, "dummy"), state.host.getCurrentDirectory?.(), createGetCanonicalFileName(useCaseSensitiveFileNames === undefined ? true : useCaseSensitiveFileNames));
-        const scope = getPackageScopeForPath(directoryPath, state.packageJsonInfoCache, state.host, state.compilerOptions);
+        const scope = getPackageScopeForPath(directoryPath, state);
         if (!scope || !scope.packageJsonContent.exports) {
             return undefined;
         }
@@ -2237,7 +2209,7 @@ namespace ts {
         }
         const useCaseSensitiveFileNames = typeof state.host.useCaseSensitiveFileNames === "function" ? state.host.useCaseSensitiveFileNames() : state.host.useCaseSensitiveFileNames;
         const directoryPath = toPath(combinePaths(directory, "dummy"), state.host.getCurrentDirectory?.(), createGetCanonicalFileName(useCaseSensitiveFileNames === undefined ? true : useCaseSensitiveFileNames));
-        const scope = getPackageScopeForPath(directoryPath, state.packageJsonInfoCache, state.host, state.compilerOptions);
+        const scope = getPackageScopeForPath(directoryPath, state);
         if (!scope) {
             if (state.traceEnabled) {
                 trace(state.host, Diagnostics.Directory_0_has_no_containing_package_json_scope_Imports_will_not_resolve, directoryPath);

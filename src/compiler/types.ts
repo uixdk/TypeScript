@@ -6607,7 +6607,7 @@ namespace ts {
     }
 
     /*@internal*/
-    export interface OldBuildInfoProgramResolutionHost {
+    export interface OldBuildInfoProgramHost {
         fileExists(fileName: string): boolean;
         createHash?(data: string): string;
         getPackageJsonInfo(fileName: string): PackageJsonInfoCacheEntry | undefined;
@@ -6615,16 +6615,13 @@ namespace ts {
     /*@internal*/
     export interface OldBuildInfoProgram {
         getCompilerOptions(): CompilerOptions;
-        clearRedirectsMap(): void;
         getResolvedModule(
-            host: OldBuildInfoProgramResolutionHost,
             dirPath: Path,
             name: string,
             mode: ResolutionMode,
             redirectedReference: ResolvedProjectReference | undefined,
         ): ResolvedModuleWithFailedLookupLocations | undefined;
         getResolvedTypeReferenceDirective(
-            host: OldBuildInfoProgramResolutionHost,
             dirPath: Path,
             name: string,
             mode: ResolutionMode,
@@ -6633,7 +6630,10 @@ namespace ts {
     }
 
     /*@internal*/
-    export type CreateProgramOptionsWithOldBuildInfoProgram = Omit<CreateProgramOptions, "oldProgram"> & { oldProgram?: OldBuildInfoProgram | Program; };
+    export type OldBuildInfoProgramConstructor = (host: OldBuildInfoProgramHost) => OldBuildInfoProgram | undefined;
+
+    /*@internal*/
+    export type CreateProgramOptionsWithOldBuildInfoProgramConstructor = Omit<CreateProgramOptions, "oldProgram"> & { oldProgram?: Program | OldBuildInfoProgramConstructor; };
 
     /* @internal */
     export interface CommandLineOptionBase {

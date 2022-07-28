@@ -555,7 +555,7 @@ namespace ts {
                             // `types-publisher` sometimes creates packages with `"typings": null` for packages that don't provide their own types.
                             // See `createNotNeededPackageJSON` in the types-publisher` repo.
                             // eslint-disable-next-line no-null/no-null
-                            const isNotNeededPackage = host.fileExists(packageJsonPath) && (readJson(packageJsonPath, host) as PackageJson).typings === null;
+                            const isNotNeededPackage = host.fileExists(packageJsonPath) && (readJsonIgnoringErrors(packageJsonPath, host) as PackageJson).typings === null;
                             if (!isNotNeededPackage) {
                                 const baseFileName = getBaseFileName(normalized);
 
@@ -623,10 +623,13 @@ namespace ts {
         getOrCreateCacheForModuleName(nonRelativeModuleName: string, mode: ResolutionMode, redirectedReference?: ResolvedProjectReference): PerModuleNameCache;
     }
 
+    /*@internal*/
+    export type PackageJsonInfoCacheEntry = PackageJsonInfo | boolean;
     export interface PackageJsonInfoCache {
-        /*@internal*/ getPackageJsonInfo(packageJsonPath: string): PackageJsonInfo | boolean | undefined;
-        /*@internal*/ setPackageJsonInfo(packageJsonPath: string, info: PackageJsonInfo | boolean): void;
-        /*@internal*/ entries(): [Path, PackageJsonInfo | boolean][];
+        /*@internal*/ getPackageJsonInfo(packageJsonPath: string): PackageJsonInfoCacheEntry | undefined;
+        /*@internal*/ setPackageJsonInfo(packageJsonPath: string, info: PackageJsonInfoCacheEntry): void;
+        /*@internal*/ entries(): [Path, PackageJsonInfoCacheEntry][];
+        /*@internal*/ clone(): ESMap<Path, PackageJsonInfoCacheEntry> | undefined;
         clear(): void;
     }
 
@@ -792,12 +795,12 @@ namespace ts {
     }
 
     function createPackageJsonInfoCache(currentDirectory: string, getCanonicalFileName: (s: string) => string): PackageJsonInfoCache {
-        let cache: ESMap<Path, PackageJsonInfo | boolean> | undefined;
-        return { getPackageJsonInfo, setPackageJsonInfo, clear, entries };
+        let cache: ESMap<Path, PackageJsonInfoCacheEntry> | undefined;
+        return { getPackageJsonInfo, setPackageJsonInfo, clear, entries, clone };
         function getPackageJsonInfo(packageJsonPath: string) {
             return cache?.get(toPath(packageJsonPath, currentDirectory, getCanonicalFileName));
         }
-        function setPackageJsonInfo(packageJsonPath: string, info: PackageJsonInfo | boolean) {
+        function setPackageJsonInfo(packageJsonPath: string, info: PackageJsonInfoCacheEntry) {
             (cache ||= new Map()).set(toPath(packageJsonPath, currentDirectory, getCanonicalFileName), info);
         }
         function clear() {
@@ -806,6 +809,10 @@ namespace ts {
         function entries() {
             const iter = cache?.entries();
             return iter ? arrayFrom(iter) : [];
+        }
+
+        function clone() {
+            return cache && new Map(cache);
         }
     }
 
@@ -1955,6 +1962,7 @@ namespace ts {
     /*@internal*/
     interface PackageJsonInfo {
         packageDirectory: string;
+        packageJsonText: string | undefined,
         packageJsonContent: PackageJsonPathFields;
         versionPaths: VersionPaths | undefined;
         /** false: resolved to nothing. undefined: not yet resolved */
@@ -2026,12 +2034,13 @@ namespace ts {
         }
         const directoryExists = directoryProbablyExists(packageDirectory, host);
         if (directoryExists && host.fileExists(packageJsonPath)) {
-            const packageJsonContent = readJson(packageJsonPath, host) as PackageJson;
+            const packageJsonText = host.readFile(packageJsonPath);
+            const packageJsonContent = readJsonIgnoringErrorsFromText(packageJsonPath, packageJsonText) as PackageJson;
             if (traceEnabled) {
                 trace(host, Diagnostics.Found_package_json_at_0, packageJsonPath);
             }
             const versionPaths = readPackageJsonTypesVersionPaths(packageJsonContent, state);
-            const result = { packageDirectory, packageJsonContent, versionPaths, resolvedEntrypoints: undefined };
+            const result: PackageJsonInfo = { packageDirectory, packageJsonText, packageJsonContent, versionPaths, resolvedEntrypoints: undefined };
             state.packageJsonInfoCache?.setPackageJsonInfo(packageJsonPath, result);
             state.affectingLocations.push(packageJsonPath);
             return result;

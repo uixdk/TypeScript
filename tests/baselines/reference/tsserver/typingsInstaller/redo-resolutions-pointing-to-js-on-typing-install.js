@@ -94,7 +94,7 @@ Module resolution kind is not specified, using 'NodeJs'.
 Loading module 'commander' from 'node_modules' folder, target file type 'TypeScript'.
 Directory '/user/username/projects/a/b/node_modules' does not exist, skipping all lookups in it.
 Directory '/user/username/projects/a/node_modules' does not exist, skipping all lookups in it.
-File '/user/username/projects/node_modules/commander/package.json' does not exist.
+File '/user/username/projects/node_modules/commander/package.json' does not exist according to earlier cached lookups.
 File '/user/username/projects/node_modules/commander.ts' does not exist.
 File '/user/username/projects/node_modules/commander.tsx' does not exist.
 File '/user/username/projects/node_modules/commander.d.ts' does not exist.

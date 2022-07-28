@@ -128,11 +128,10 @@ Output::
 >> Screen clear
 [[90m12:00:43 AM[0m] File change detected. Starting incremental compilation...
 
-File '/a/lib/package.json' does not exist.
-File '/a/package.json' does not exist.
-File '/package.json' does not exist.
-Found 'package.json' at '/user/username/projects/myproject/package.json'.
-'package.json' does not have a 'typesVersions' field.
+File '/a/lib/package.json' does not exist according to earlier cached lookups.
+File '/a/package.json' does not exist according to earlier cached lookups.
+File '/package.json' does not exist according to earlier cached lookups.
+File '/user/username/projects/myproject/package.json' exists according to earlier cached lookups.
 File '/user/username/projects/myproject/package.json' exists according to earlier cached lookups.
 File '/user/username/projects/myproject/package.json' exists according to earlier cached lookups.
 Reusing resolution of module '@this/package' from '/user/username/projects/myproject/index.ts' of old program, it was successfully resolved to '/user/username/projects/myproject/index.ts'.

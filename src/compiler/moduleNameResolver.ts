@@ -563,6 +563,7 @@ namespace ts {
     }
 
     export interface TypeReferenceDirectiveResolutionCache extends PerDirectoryResolutionCache<ResolvedTypeReferenceDirectiveWithFailedLookupLocations>, PackageJsonInfoCache {
+        /*@internal*/ clearAllExceptPackageJsonInfoCache(): void;
     }
 
     export type ResolutionMode = ModuleKind.CommonJS | ModuleKind.ESNext | undefined;
@@ -601,6 +602,7 @@ namespace ts {
 
     export interface ModuleResolutionCache extends PerDirectoryResolutionCache<ResolvedModuleWithFailedLookupLocations>, NonRelativeModuleNameResolutionCache, PackageJsonInfoCache {
         getPackageJsonInfoCache(): PackageJsonInfoCache;
+        /*@internal*/ clearAllExceptPackageJsonInfoCache(): void;
     }
 
     /**
@@ -619,6 +621,7 @@ namespace ts {
         /*@internal*/ setPackageJsonInfo(packageJsonPath: string, info: PackageJsonInfoCacheEntry): void;
         /*@internal*/ entries(): [Path, PackageJsonInfoCacheEntry][];
         /*@internal*/ clone(): PackageJsonInfoCache;
+        /*@internal*/ getInternalMap(): ESMap<Path, PackageJsonInfoCacheEntry> | undefined;
         clear(): void;
     }
 
@@ -784,7 +787,7 @@ namespace ts {
     }
 
     function createPackageJsonInfoCache(currentDirectory: string, getCanonicalFileName: (s: string) => string, cache?: ESMap<Path, PackageJsonInfoCacheEntry>): PackageJsonInfoCache {
-        return { getPackageJsonInfo, setPackageJsonInfo, clear, entries, clone };
+        return { getPackageJsonInfo, setPackageJsonInfo, clear, entries, clone, getInternalMap, };
         function getPackageJsonInfo(packageJsonPath: string) {
             return cache?.get(toPath(packageJsonPath, currentDirectory, getCanonicalFileName));
         }
@@ -801,6 +804,10 @@ namespace ts {
 
         function clone() {
             return createPackageJsonInfoCache(currentDirectory, getCanonicalFileName, cache && new Map(cache));
+        }
+
+        function getInternalMap() {
+            return cache;
         }
     }
 
@@ -1013,13 +1020,18 @@ namespace ts {
             update,
             getPackageJsonInfoCache: () => packageJsonInfoCache,
             setOldResolutionCache,
+            clearAllExceptPackageJsonInfoCache,
         };
 
         function clear() {
+            clearAllExceptPackageJsonInfoCache();
+            packageJsonInfoCache.clear();
+        }
+
+        function clearAllExceptPackageJsonInfoCache() {
             oldResolutionCache = undefined;
             perDirectoryResolutionCache.clear();
             moduleNameToDirectoryMap.clear();
-            packageJsonInfoCache.clear();
         }
 
         function update(options: CompilerOptions) {
@@ -1098,11 +1110,16 @@ namespace ts {
             ...packageJsonInfoCache,
             ...preDirectoryResolutionCache,
             clear,
+            clearAllExceptPackageJsonInfoCache,
         };
 
         function clear() {
-            preDirectoryResolutionCache.clear();
+            clearAllExceptPackageJsonInfoCache();
             packageJsonInfoCache!.clear();
+        }
+
+        function clearAllExceptPackageJsonInfoCache() {
+            preDirectoryResolutionCache.clear();
         }
     }
 

@@ -200,16 +200,15 @@ Output::
 >> Screen clear
 [[90m12:00:47 AM[0m] File change detected. Starting incremental compilation...
 
-File '/a/lib/package.json' does not exist.
-File '/a/package.json' does not exist.
-File '/package.json' does not exist.
-File '/user/username/projects/myproject/package.json' does not exist.
-File '/user/username/projects/package.json' does not exist.
-File '/user/username/package.json' does not exist.
-File '/user/package.json' does not exist.
+File '/a/lib/package.json' does not exist according to earlier cached lookups.
+File '/a/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
-Found 'package.json' at '/user/username/projects/myproject/node_modules/pkg/package.json'.
-'package.json' does not have a 'typesVersions' field.
+File '/user/username/projects/myproject/package.json' does not exist according to earlier cached lookups.
+File '/user/username/projects/package.json' does not exist according to earlier cached lookups.
+File '/user/username/package.json' does not exist according to earlier cached lookups.
+File '/user/package.json' does not exist according to earlier cached lookups.
+File '/package.json' does not exist according to earlier cached lookups.
+File '/user/username/projects/myproject/node_modules/pkg/package.json' exists according to earlier cached lookups.
 File '/user/username/projects/myproject/package.json' does not exist according to earlier cached lookups.
 File '/user/username/projects/package.json' does not exist according to earlier cached lookups.
 File '/user/username/package.json' does not exist according to earlier cached lookups.

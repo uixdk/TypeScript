@@ -212,16 +212,14 @@ modify randomFileForImport by adding import
 request:{"command":"change","arguments":{"file":"/src/project/randomFileForImport.ts","line":1,"offset":1,"endLine":1,"endOffset":1,"insertString":"import type { ImportInterface0 } from \"pkg0\" assert { \"resolution-mode\": \"import\" };\n"},"seq":1,"type":"request"}
 response:{"responseRequired":false}
 Starting updateGraphWorker: Project: /src/project/tsconfig.json
-File '/a/lib/package.json' does not exist.
-File '/a/package.json' does not exist.
-File '/package.json' does not exist.
-Found 'package.json' at '/src/project/node_modules/pkg0/package.json'.
-'package.json' does not have a 'typesVersions' field.
-File '/src/project/package.json' does not exist.
-File '/src/package.json' does not exist.
+File '/a/lib/package.json' does not exist according to earlier cached lookups.
+File '/a/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
-Found 'package.json' at '/src/project/node_modules/pkg2/package.json'.
-'package.json' does not have a 'typesVersions' field.
+File '/src/project/node_modules/pkg0/package.json' exists according to earlier cached lookups.
+File '/src/project/package.json' does not exist according to earlier cached lookups.
+File '/src/package.json' does not exist according to earlier cached lookups.
+File '/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/pkg2/package.json' exists according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
@@ -231,9 +229,9 @@ File '/package.json' does not exist according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
-File '/src/project/node_modules/@types/pkg4/package.json' does not exist.
-File '/src/project/node_modules/@types/package.json' does not exist.
-File '/src/project/node_modules/package.json' does not exist.
+File '/src/project/node_modules/@types/pkg4/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/@types/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/package.json' does not exist according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
@@ -274,16 +272,14 @@ modify randomFileForTypeRef by adding typeRef
 request:{"command":"change","arguments":{"file":"/src/project/randomFileForTypeRef.ts","line":1,"offset":1,"endLine":1,"endOffset":1,"insertString":"/// <reference types=\"pkg2\" resolution-mode=\"import\"/>\n"},"seq":2,"type":"request"}
 response:{"responseRequired":false}
 Starting updateGraphWorker: Project: /src/project/tsconfig.json
-File '/a/lib/package.json' does not exist.
-File '/a/package.json' does not exist.
-File '/package.json' does not exist.
-Found 'package.json' at '/src/project/node_modules/pkg0/package.json'.
-'package.json' does not have a 'typesVersions' field.
-File '/src/project/package.json' does not exist.
-File '/src/package.json' does not exist.
+File '/a/lib/package.json' does not exist according to earlier cached lookups.
+File '/a/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
-Found 'package.json' at '/src/project/node_modules/pkg2/package.json'.
-'package.json' does not have a 'typesVersions' field.
+File '/src/project/node_modules/pkg0/package.json' exists according to earlier cached lookups.
+File '/src/project/package.json' does not exist according to earlier cached lookups.
+File '/src/package.json' does not exist according to earlier cached lookups.
+File '/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/pkg2/package.json' exists according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
@@ -293,9 +289,9 @@ File '/package.json' does not exist according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
-File '/src/project/node_modules/@types/pkg4/package.json' does not exist.
-File '/src/project/node_modules/@types/package.json' does not exist.
-File '/src/project/node_modules/package.json' does not exist.
+File '/src/project/node_modules/@types/pkg4/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/@types/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/package.json' does not exist according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
@@ -344,16 +340,14 @@ Scheduled: /src/project/tsconfig.json
 Scheduled: *ensureProjectForOpenFiles*
 Running: /src/project/tsconfig.json
 Starting updateGraphWorker: Project: /src/project/tsconfig.json
-File '/a/lib/package.json' does not exist.
-File '/a/package.json' does not exist.
-File '/package.json' does not exist.
-Found 'package.json' at '/src/project/node_modules/pkg0/package.json'.
-'package.json' does not have a 'typesVersions' field.
-File '/src/project/package.json' does not exist.
-File '/src/package.json' does not exist.
+File '/a/lib/package.json' does not exist according to earlier cached lookups.
+File '/a/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
-Found 'package.json' at '/src/project/node_modules/pkg2/package.json'.
-'package.json' does not have a 'typesVersions' field.
+File '/src/project/node_modules/pkg0/package.json' exists according to earlier cached lookups.
+File '/src/project/package.json' does not exist according to earlier cached lookups.
+File '/src/package.json' does not exist according to earlier cached lookups.
+File '/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/pkg2/package.json' exists according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
@@ -363,9 +357,9 @@ File '/package.json' does not exist according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
-File '/src/project/node_modules/@types/pkg4/package.json' does not exist.
-File '/src/project/node_modules/@types/package.json' does not exist.
-File '/src/project/node_modules/package.json' does not exist.
+File '/src/project/node_modules/@types/pkg4/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/@types/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/package.json' does not exist according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
@@ -483,18 +477,15 @@ Scheduled: /src/project/tsconfig.json
 Scheduled: *ensureProjectForOpenFiles*
 Running: /src/project/tsconfig.json
 Starting updateGraphWorker: Project: /src/project/tsconfig.json
-File '/a/lib/package.json' does not exist.
-File '/a/package.json' does not exist.
-File '/package.json' does not exist.
-Found 'package.json' at '/src/project/node_modules/pkg0/package.json'.
-'package.json' does not have a 'typesVersions' field.
-Found 'package.json' at '/src/project/node_modules/pkg1/package.json'.
-'package.json' does not have a 'typesVersions' field.
-File '/src/project/package.json' does not exist.
-File '/src/package.json' does not exist.
+File '/a/lib/package.json' does not exist according to earlier cached lookups.
+File '/a/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
-Found 'package.json' at '/src/project/node_modules/pkg2/package.json'.
-'package.json' does not have a 'typesVersions' field.
+File '/src/project/node_modules/pkg0/package.json' exists according to earlier cached lookups.
+File '/src/project/node_modules/pkg1/package.json' exists according to earlier cached lookups.
+File '/src/project/package.json' does not exist according to earlier cached lookups.
+File '/src/package.json' does not exist according to earlier cached lookups.
+File '/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/pkg2/package.json' exists according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
@@ -504,9 +495,9 @@ File '/package.json' does not exist according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
-File '/src/project/node_modules/@types/pkg4/package.json' does not exist.
-File '/src/project/node_modules/@types/package.json' does not exist.
-File '/src/project/node_modules/package.json' does not exist.
+File '/src/project/node_modules/@types/pkg4/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/@types/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/package.json' does not exist according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
@@ -621,20 +612,17 @@ Scheduled: /src/project/tsconfig.json
 Scheduled: *ensureProjectForOpenFiles*
 Running: /src/project/tsconfig.json
 Starting updateGraphWorker: Project: /src/project/tsconfig.json
-File '/a/lib/package.json' does not exist.
-File '/a/package.json' does not exist.
-File '/package.json' does not exist.
-Found 'package.json' at '/src/project/node_modules/pkg0/package.json'.
-'package.json' does not have a 'typesVersions' field.
+File '/a/lib/package.json' does not exist according to earlier cached lookups.
+File '/a/package.json' does not exist according to earlier cached lookups.
+File '/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/pkg0/package.json' exists according to earlier cached lookups.
 Found 'package.json' at '/src/project/node_modules/pkg1/package.json'.
 'package.json' does not have a 'typesVersions' field.
-File '/src/project/package.json' does not exist.
-File '/src/package.json' does not exist.
+File '/src/project/package.json' does not exist according to earlier cached lookups.
+File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
-Found 'package.json' at '/src/project/node_modules/pkg2/package.json'.
-'package.json' does not have a 'typesVersions' field.
-Found 'package.json' at '/src/project/node_modules/pkg3/package.json'.
-'package.json' does not have a 'typesVersions' field.
+File '/src/project/node_modules/pkg2/package.json' exists according to earlier cached lookups.
+File '/src/project/node_modules/pkg3/package.json' exists according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
@@ -644,9 +632,9 @@ File '/package.json' does not exist according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
-File '/src/project/node_modules/@types/pkg4/package.json' does not exist.
-File '/src/project/node_modules/@types/package.json' does not exist.
-File '/src/project/node_modules/package.json' does not exist.
+File '/src/project/node_modules/@types/pkg4/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/@types/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/package.json' does not exist according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
@@ -776,18 +764,15 @@ Scheduled: /src/project/tsconfig.json
 Scheduled: *ensureProjectForOpenFiles*
 Running: /src/project/tsconfig.json
 Starting updateGraphWorker: Project: /src/project/tsconfig.json
-File '/a/lib/package.json' does not exist.
-File '/a/package.json' does not exist.
-File '/package.json' does not exist.
-Found 'package.json' at '/src/project/node_modules/pkg0/package.json'.
-'package.json' does not have a 'typesVersions' field.
-File '/src/project/package.json' does not exist.
-File '/src/package.json' does not exist.
+File '/a/lib/package.json' does not exist according to earlier cached lookups.
+File '/a/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
-Found 'package.json' at '/src/project/node_modules/pkg2/package.json'.
-'package.json' does not have a 'typesVersions' field.
-Found 'package.json' at '/src/project/node_modules/pkg3/package.json'.
-'package.json' does not have a 'typesVersions' field.
+File '/src/project/node_modules/pkg0/package.json' exists according to earlier cached lookups.
+File '/src/project/package.json' does not exist according to earlier cached lookups.
+File '/src/package.json' does not exist according to earlier cached lookups.
+File '/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/pkg2/package.json' exists according to earlier cached lookups.
+File '/src/project/node_modules/pkg3/package.json' exists according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
@@ -797,9 +782,9 @@ File '/package.json' does not exist according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
-File '/src/project/node_modules/@types/pkg4/package.json' does not exist.
-File '/src/project/node_modules/@types/package.json' does not exist.
-File '/src/project/node_modules/package.json' does not exist.
+File '/src/project/node_modules/@types/pkg4/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/@types/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/package.json' does not exist according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
@@ -924,34 +909,31 @@ Scheduled: *ensureProjectForOpenFiles*, Cancelled earlier one
 Elapsed:: *ms DirectoryWatcher:: Triggered with /src/project/fileWithImports.ts :: WatchInfo: /src/project 0 undefined Config: /src/project/tsconfig.json WatchType: Wild card directory
 Running: /src/project/tsconfig.json
 Starting updateGraphWorker: Project: /src/project/tsconfig.json
-File '/src/project/package.json' does not exist.
-File '/src/package.json' does not exist.
-File '/package.json' does not exist.
+File '/src/project/package.json' does not exist according to earlier cached lookups.
+File '/src/package.json' does not exist according to earlier cached lookups.
+File '/package.json' does not exist according to earlier cached lookups.
 Reusing resolution of type reference directive 'pkg2' from '/src/project/fileWithTypeRefs.ts' of old program, it was successfully resolved to '/src/project/node_modules/pkg2/import.d.ts' with Package ID 'pkg2/import.d.ts@0.0.1'.
 Reusing resolution of type reference directive 'pkg3' from '/src/project/fileWithTypeRefs.ts' of old program, it was successfully resolved to '/src/project/node_modules/pkg3/require.d.ts' with Package ID 'pkg3/require.d.ts@0.0.1'.
-Found 'package.json' at '/src/project/node_modules/pkg2/package.json'.
-'package.json' does not have a 'typesVersions' field.
-Found 'package.json' at '/src/project/node_modules/pkg3/package.json'.
-'package.json' does not have a 'typesVersions' field.
+File '/src/project/node_modules/pkg2/package.json' exists according to earlier cached lookups.
+File '/src/project/node_modules/pkg3/package.json' exists according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
 Reusing resolution of module 'pkg0' from '/src/project/randomFileForImport.ts' of old program, it was successfully resolved to '/src/project/node_modules/pkg0/import.d.ts' with Package ID 'pkg0/import.d.ts@0.0.1'.
-Found 'package.json' at '/src/project/node_modules/pkg0/package.json'.
-'package.json' does not have a 'typesVersions' field.
+File '/src/project/node_modules/pkg0/package.json' exists according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
 Reusing resolution of type reference directive 'pkg2' from '/src/project/randomFileForTypeRef.ts' of old program, it was successfully resolved to '/src/project/node_modules/pkg2/import.d.ts' with Package ID 'pkg2/import.d.ts@0.0.1'.
 Reusing resolution of type reference directive 'pkg4' from '/src/project/__inferred type names__.ts' of old program, it was successfully resolved to '/src/project/node_modules/@types/pkg4/index.d.ts'.
-File '/src/project/node_modules/@types/pkg4/package.json' does not exist.
-File '/src/project/node_modules/@types/package.json' does not exist.
-File '/src/project/node_modules/package.json' does not exist.
+File '/src/project/node_modules/@types/pkg4/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/@types/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/package.json' does not exist according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
-File '/a/lib/package.json' does not exist.
-File '/a/package.json' does not exist.
+File '/a/lib/package.json' does not exist according to earlier cached lookups.
+File '/a/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
 FileWatcher:: Close:: WatchInfo: /src/project/node_modules/pkg1/package.json 2000 undefined Project: /src/project/tsconfig.json WatchType: package.json file
 Finishing updateGraphWorker: Project: /src/project/tsconfig.json Version: 8 structureChanged: true structureIsReused:: SafeModuleCache Elapsed:: *ms
@@ -1018,27 +1000,25 @@ Scheduled: *ensureProjectForOpenFiles*, Cancelled earlier one
 Elapsed:: *ms DirectoryWatcher:: Triggered with /src/project/fileWithTypeRefs.ts :: WatchInfo: /src/project 0 undefined Config: /src/project/tsconfig.json WatchType: Wild card directory
 Running: /src/project/tsconfig.json
 Starting updateGraphWorker: Project: /src/project/tsconfig.json
-File '/src/project/package.json' does not exist.
-File '/src/package.json' does not exist.
-File '/package.json' does not exist.
+File '/src/project/package.json' does not exist according to earlier cached lookups.
+File '/src/package.json' does not exist according to earlier cached lookups.
+File '/package.json' does not exist according to earlier cached lookups.
 Reusing resolution of module 'pkg0' from '/src/project/randomFileForImport.ts' of old program, it was successfully resolved to '/src/project/node_modules/pkg0/import.d.ts' with Package ID 'pkg0/import.d.ts@0.0.1'.
-Found 'package.json' at '/src/project/node_modules/pkg0/package.json'.
-'package.json' does not have a 'typesVersions' field.
+File '/src/project/node_modules/pkg0/package.json' exists according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
 Reusing resolution of type reference directive 'pkg2' from '/src/project/randomFileForTypeRef.ts' of old program, it was successfully resolved to '/src/project/node_modules/pkg2/import.d.ts' with Package ID 'pkg2/import.d.ts@0.0.1'.
-Found 'package.json' at '/src/project/node_modules/pkg2/package.json'.
-'package.json' does not have a 'typesVersions' field.
+File '/src/project/node_modules/pkg2/package.json' exists according to earlier cached lookups.
 Reusing resolution of type reference directive 'pkg4' from '/src/project/__inferred type names__.ts' of old program, it was successfully resolved to '/src/project/node_modules/@types/pkg4/index.d.ts'.
-File '/src/project/node_modules/@types/pkg4/package.json' does not exist.
-File '/src/project/node_modules/@types/package.json' does not exist.
-File '/src/project/node_modules/package.json' does not exist.
+File '/src/project/node_modules/@types/pkg4/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/@types/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/package.json' does not exist according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
-File '/a/lib/package.json' does not exist.
-File '/a/package.json' does not exist.
+File '/a/lib/package.json' does not exist according to earlier cached lookups.
+File '/a/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
 FileWatcher:: Close:: WatchInfo: /src/project/node_modules/pkg3/package.json 2000 undefined Project: /src/project/tsconfig.json WatchType: package.json file
 Finishing updateGraphWorker: Project: /src/project/tsconfig.json Version: 9 structureChanged: true structureIsReused:: SafeModuleCache Elapsed:: *ms
@@ -1094,13 +1074,12 @@ Scheduled: *ensureProjectForOpenFiles*
 Elapsed:: *ms DirectoryWatcher:: Triggered with /src/project/node_modules/pkg0/import.d.ts :: WatchInfo: /src/project/node_modules 1 undefined WatchType: node_modules for closed script infos and package.jsons affecting module specifier cache
 Running: /src/project/tsconfig.json
 Starting updateGraphWorker: Project: /src/project/tsconfig.json
-File '/a/lib/package.json' does not exist.
-File '/a/package.json' does not exist.
-File '/package.json' does not exist.
-Found 'package.json' at '/src/project/node_modules/pkg0/package.json'.
-'package.json' does not have a 'typesVersions' field.
-File '/src/project/package.json' does not exist.
-File '/src/package.json' does not exist.
+File '/a/lib/package.json' does not exist according to earlier cached lookups.
+File '/a/package.json' does not exist according to earlier cached lookups.
+File '/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/pkg0/package.json' exists according to earlier cached lookups.
+File '/src/project/package.json' does not exist according to earlier cached lookups.
+File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
 ======== Resolving module 'pkg0' from '/src/project/randomFileForImport.ts'. ========
 Explicitly specified module resolution kind: 'Node16'.
@@ -1130,12 +1109,11 @@ File '/src/project/package.json' does not exist according to earlier cached look
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
 Reusing resolution of type reference directive 'pkg2' from '/src/project/randomFileForTypeRef.ts' of old program, it was successfully resolved to '/src/project/node_modules/pkg2/import.d.ts' with Package ID 'pkg2/import.d.ts@0.0.1'.
-Found 'package.json' at '/src/project/node_modules/pkg2/package.json'.
-'package.json' does not have a 'typesVersions' field.
+File '/src/project/node_modules/pkg2/package.json' exists according to earlier cached lookups.
 Reusing resolution of type reference directive 'pkg4' from '/src/project/__inferred type names__.ts' of old program, it was successfully resolved to '/src/project/node_modules/@types/pkg4/index.d.ts'.
-File '/src/project/node_modules/@types/pkg4/package.json' does not exist.
-File '/src/project/node_modules/@types/package.json' does not exist.
-File '/src/project/node_modules/package.json' does not exist.
+File '/src/project/node_modules/@types/pkg4/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/@types/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/package.json' does not exist according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
@@ -1199,11 +1177,11 @@ Scheduled: /src/project/tsconfig.jsonFailedLookupInvalidation
 Elapsed:: *ms DirectoryWatcher:: Triggered with /src/project/node_modules/pkg2/import.d.ts :: WatchInfo: /src/project/node_modules 1 undefined Project: /src/project/tsconfig.json WatchType: Failed Lookup Locations
 Running: /src/project/tsconfig.json
 Starting updateGraphWorker: Project: /src/project/tsconfig.json
-File '/a/lib/package.json' does not exist.
-File '/a/package.json' does not exist.
-File '/package.json' does not exist.
-File '/src/project/package.json' does not exist.
-File '/src/package.json' does not exist.
+File '/a/lib/package.json' does not exist according to earlier cached lookups.
+File '/a/package.json' does not exist according to earlier cached lookups.
+File '/package.json' does not exist according to earlier cached lookups.
+File '/src/project/package.json' does not exist according to earlier cached lookups.
+File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
 Found 'package.json' at '/src/project/node_modules/pkg2/package.json'.
 'package.json' does not have a 'typesVersions' field.
@@ -1224,9 +1202,9 @@ Directory '/src/node_modules' does not exist, skipping all lookups in it.
 Directory '/node_modules' does not exist, skipping all lookups in it.
 ======== Type reference directive 'pkg2' was not resolved. ========
 Reusing resolution of type reference directive 'pkg4' from '/src/project/__inferred type names__.ts' of old program, it was successfully resolved to '/src/project/node_modules/@types/pkg4/index.d.ts'.
-File '/src/project/node_modules/@types/pkg4/package.json' does not exist.
-File '/src/project/node_modules/@types/package.json' does not exist.
-File '/src/project/node_modules/package.json' does not exist.
+File '/src/project/node_modules/@types/pkg4/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/@types/package.json' does not exist according to earlier cached lookups.
+File '/src/project/node_modules/package.json' does not exist according to earlier cached lookups.
 File '/src/project/package.json' does not exist according to earlier cached lookups.
 File '/src/package.json' does not exist according to earlier cached lookups.
 File '/package.json' does not exist according to earlier cached lookups.
